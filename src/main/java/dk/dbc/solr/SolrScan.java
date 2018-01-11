@@ -81,8 +81,10 @@ public class SolrScan {
 
     public String getField() {
         final String[] fields = solrQuery.getTermsFields();
-        if (fields.length > 0) {
+        if (fields.length == 1) {
             return fields[0];
+        } else if (fields.length > 1) {
+            throw new IllegalStateException("Multiple fields contained in scan");
         }
         return null;
     }
