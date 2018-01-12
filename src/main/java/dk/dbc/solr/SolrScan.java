@@ -16,6 +16,8 @@ import org.apache.solr.common.cloud.DocCollection;
 import org.apache.solr.common.cloud.Replica;
 import org.apache.solr.common.cloud.Slice;
 import org.apache.solr.common.cloud.ZkStateReader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,6 +30,7 @@ import java.util.stream.Collectors;
  * @see <a href="https://lucene.apache.org/solr/guide/6_6/the-terms-component.html">Terms Component</a>
  */
 public class SolrScan {
+    private static final Logger LOGGER = LoggerFactory.getLogger(SolrScan.class);
     private static final String HANDLER = "/terms";
 
     private final SolrClient solrClient;
@@ -57,6 +60,7 @@ public class SolrScan {
         this((SolrClient) solrClient, collection);
         solrClient.connect();
         final List<String> shardUrls = getShardUrls();
+        LOGGER.debug("shard urls: {}", shardUrls);
         if (shardUrls.size() > 1) {
             // The terms component does not seem to work
             // transparently with CloudSolrClient so we still
