@@ -8,7 +8,7 @@
     <field name="_version_" type="long" indexed="true" stored="true"/>
 
     <field indexed="true" name="id" stored="true" type="string" required="true"/>
-    <field indexed="true" name="title" stored="true" type="string"/>
+    <field indexed="true" name="title" stored="true" type="text_general"/>
     <field indexed="true" name="author" stored="true" type="string"/>
     <uniqueKey>id</uniqueKey>
 
