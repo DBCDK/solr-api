@@ -12,6 +12,8 @@ import org.apache.solr.client.solrj.request.QueryRequest;
 import org.apache.solr.client.solrj.response.QueryResponse;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Searches using the Solr SearchHandler
@@ -53,6 +55,15 @@ public class SolrSearch {
 
     public int getStart() {
         return solrQuery.getStart();
+    }
+
+    public SolrSearch withSortClauses(SolrQuery.SortClause... sortClauses) {
+        solrQuery.setSorts(Arrays.asList(sortClauses));
+        return this;
+    }
+
+    public List<SolrQuery.SortClause> getSortClauses() {
+        return solrQuery.getSorts();
     }
 
     public QueryResponse execute() throws IOException, SolrServerException {
