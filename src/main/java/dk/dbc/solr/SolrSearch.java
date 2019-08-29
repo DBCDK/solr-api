@@ -66,6 +66,15 @@ public class SolrSearch {
         return solrQuery.getSorts();
     }
 
+    public SolrSearch withFields(String... fields) {
+        solrQuery.setFields(fields);
+        return this;
+    }
+
+    public String getFields() {
+        return solrQuery.getFields();
+    }
+
     public QueryResponse execute() throws IOException, SolrServerException {
         final QueryRequest request = new QueryRequest(solrQuery);
         return request.process(solrClient, collection);
