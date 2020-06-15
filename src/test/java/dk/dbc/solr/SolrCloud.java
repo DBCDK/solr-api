@@ -44,6 +44,8 @@ public class SolrCloud {
 
     @BeforeClass
     public static void startCluster() throws Exception {
+        // Without this property solr8 tests result in IOException: 6/invalid_frame_length
+        System.setProperty("jetty.testMode", "true");
         miniSolrCloudCluster = new MiniSolrCloudCluster(1, null,
                 FileSystems.getDefault().getPath(solrHome.getRoot().getAbsolutePath()),
                 MiniSolrCloudCluster.DEFAULT_CLOUD_SOLR_XML, null, null);
