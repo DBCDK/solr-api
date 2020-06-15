@@ -5,7 +5,7 @@
 
 package dk.dbc.solr;
 
-import org.apache.solr.client.solrj.request.AbstractUpdateRequest;
+import org.apache.solr.client.solrj.request.ContentStreamUpdateRequest;
 import org.apache.solr.common.util.ContentStream;
 import org.apache.solr.common.util.ContentStreamBase;
 
@@ -13,7 +13,7 @@ import java.io.InputStream;
 import java.util.Collection;
 import java.util.Collections;
 
-public class JsonUpdateRequest extends AbstractUpdateRequest {
+public class JsonUpdateRequest extends ContentStreamUpdateRequest {
     private final InputStream inputStream;
 
     /**
@@ -21,7 +21,7 @@ public class JsonUpdateRequest extends AbstractUpdateRequest {
      * @param inputStream JSON stream
      */
     public JsonUpdateRequest(InputStream inputStream) {
-        super(METHOD.POST, "/update/json/docs");
+        super("/update/json/docs");
         this.inputStream = inputStream;
         this.setParam("json.command", "false");
     }
