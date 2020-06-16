@@ -141,8 +141,8 @@ public class SolrCloud {
     }
 
     private static void pingCluster() throws IOException {
-        try (CloudSolrClient cloudSolrClient = new CloudSolrClient.Builder()
-                .withZkHost(getZkAddress())
+        final ZkParams zkParams = ZkParams.create(getZkAddress());
+        try (CloudSolrClient cloudSolrClient = new CloudSolrClient.Builder(zkParams.getZkHosts(), zkParams.getZkChroot())
                 .build()) {
             cloudSolrClient.connect();
 
