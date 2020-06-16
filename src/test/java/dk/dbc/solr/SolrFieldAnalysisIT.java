@@ -26,7 +26,8 @@ public class SolrFieldAnalysisIT extends SolrCloud {
     @BeforeClass
     public static void createFieldAnalysisTestCollection() throws IOException, SolrServerException {
         final File confDir = new File("src/test/resources/conf");
-        cloudSolrClient = new CloudSolrClient.Builder().withZkHost(getZkAddress()).build();
+        final ZkParams zkParams = ZkParams.create(getZkAddress());
+        cloudSolrClient = new CloudSolrClient.Builder(zkParams.getZkHosts(), zkParams.getZkChroot()).build();
         cloudSolrClient.connect();
         createCollection(cloudSolrClient, COLLECTION, 2, 1, confDir);
         try (final InputStream inputStream = new FileInputStream("src/test/resources/books.json")) {
